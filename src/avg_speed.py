@@ -10,5 +10,5 @@ def avg_speed_time(distance, time_format):
     return avg_speed_secs(distance, seconds)
 
 
-print(avg_speed_secs(0.032538589626169, 5.0))
-print(avg_speed_time(174, '04:55:23'))
+# print(avg_speed_secs(0.032538589626169, 5.0))
+print(avg_speed_time(5, '00:17:41'))
