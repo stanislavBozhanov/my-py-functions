@@ -3,7 +3,7 @@
 # and you want to clean it up.
 
 from collections import Counter
-from operator import itemgetter
+from operator import itemgetter, attrgetter
 
 
 # 0123456789012345678901234567890123456789012345678901234567890'
@@ -80,3 +80,35 @@ rows_by_fname_lambda = sorted(rows, key=lambda r: r['fname'])
 rows_by_lfname = sorted(rows, key=itemgetter('lname', 'fname'))
 
 min_uid = min(rows, key=itemgetter('uid'))
+
+# Problem
+# You want to sort objects of the same class, but they don’t natively
+# support comparison operations.
+
+
+class User:
+    def __init__(self, user_id):
+        self.user_id = user_id
+
+    def __repr__(self):
+        return 'User({})'.format(self.user_id)
+
+
+users = [User(23), User(3), User(99)]
+users_by_id = sorted(users, key=attrgetter('user_id'))
+
+
+# Problem
+# You have a sequence of dictionaries or instances and you want to iterate
+# over the data in groups based on the value of a particular field, such as date.
+
+rows = [
+    {'address': '5122 N CLARK', 'date': '07/03/2012'},
+    {'address': '5123 N BLUS', 'date': '07/02/2012'},
+    {'address': '5124 N CKSD', 'date': '07/01/2012'},
+    {'address': '5125 N PESD', 'date': '07/03/2012'},
+    {'address': '5126 N ADGSS', 'date': '07/03/2012'},
+    {'address': '5126 N EDDS', 'date': '07/01/2012'},
+    {'address': '5127 N KOLL', 'date': '07/04/2012'},
+    {'address': '5120 N PELS', 'date': '07/04/2012'},
+]
