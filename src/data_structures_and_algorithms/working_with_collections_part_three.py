@@ -2,7 +2,8 @@
 # Your program has become an unreadable mess of hardcoded slice indices
 # and you want to clean it up.
 
-from collections import Counter
+from collections import Counter, defaultdict
+from itertools import groupby
 from operator import itemgetter, attrgetter
 
 
@@ -14,13 +15,13 @@ cost = int(record[20:23])*float(record[30:36])
 SHARES = slice(20, 23)
 PRICE = slice(30, 36)
 cost = int(record[SHARES]) * float(record[PRICE])
-print(cost)
+# print(cost)
 
 # To avoid Index out of range you can bind it to a sequence
 s = slice(1, 50, 2)
 a = 'HelloWorld'
-for i in range(*s.indices(len(a))):
-    print(a[i])
+# for i in range(*s.indices(len(a))):
+    # print(a[i])
 
 # Problem
 # You have a sequence of items, and you’d like to determine
@@ -112,3 +113,18 @@ rows = [
     {'address': '5127 N KOLL', 'date': '07/04/2012'},
     {'address': '5120 N PELS', 'date': '07/04/2012'},
 ]
+
+# rows.sort(key=itemgetter('date'))  # groupby groups only consecutive items
+# for date, items in groupby(rows, key=itemgetter('date')):
+#     print(date)
+#     for i in items:
+#         print('  ', i)
+
+
+#  if you want large structure with random accesss
+rows_by_date = defaultdict(list)
+for row in rows:
+    rows_by_date[row['date']].append(row)
+
+for i in rows_by_date['07/03/2012']:
+    print(i)
